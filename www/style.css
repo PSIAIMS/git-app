@@ -1,0 +1,73 @@
+:root{
+    --radius: 5em; 
+    --radius2 : 2.5em; /*should be 1/2 radius*/ 
+    } 
+    
+body{
+background-color: #f2e5e1;
+}
+              
+.dot {
+  display: inline-block;
+  width: var(--radius);
+  height: var(--radius);
+  border-radius: 50%;
+  background-color: #337535;
+  margin: var(--radius2);
+  position: relative;
+}
+
+.dot:before,
+.dot:after
+{
+  content:'';
+  width:var(--radius);
+  border-bottom:3px solid;
+  position:absolute;
+  top:50%;
+  color: #49392C;
+}
+
+.dot:before {
+  content: attr(message); 
+  position:absolute;
+  
+  /* vertically center */
+  top:50%;
+  transform:translateY(-50%);
+  
+  /* move to right */
+  left:100%;
+  margin-left:15px; /* and add a small left margin */
+
+  z-index: 1; /* Add this line to ensure tooltip appears above other dots */
+  
+  /* basic styles */
+  width:200px;
+  padding:10px;
+  border-radius:10px;
+  background:#000;
+  color: #fff;
+  text-align:center;
+
+  display:none; /* hide by default */
+}
+
+.dot:hover:before {
+  display:block;
+}
+
+:after {
+  left:100%;
+}
+:before {
+  right:100%;
+}
+
+.dot:last-of-type:after {
+  display:none;
+}
+
+.branch {
+  white-space:nowrap; 
+  }
