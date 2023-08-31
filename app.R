@@ -3,10 +3,10 @@ library(shinyAce)
 library(shinyjs)
 library(purrr)
 
-list.files(path = "mods/") |> 
+list.files(path = "mods/", full.names = TRUE) |> 
   map(source)
-
-ui <- fluidPage(
+  
+ui <-  fluidPage(
   includeCSS("www/style.css"),
   shinyjs::useShinyjs(),
   page_navbar(
@@ -22,8 +22,8 @@ ui <- fluidPage(
               
     ),
     nav_panel("Making Branches"),
-    nav_panel("Merging Branches"),
-    nav_panel("Remote")
+    nav_panel("Remotes"),
+    nav_panel("Merging Branches")
   )
 )
 

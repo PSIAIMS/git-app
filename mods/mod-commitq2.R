@@ -7,7 +7,8 @@ commitq2_ui <- function(id){
     aceEditor(ns("code_box"), "Code Box", value = init),
     column(
       width = 12,
-      textInput(ns("commit_msg"), "Commit Message", ""),
+      div(style = "margin-left: 0.4rem;",
+        textInput(ns("commit_msg"), "Commit Message", "")),
       actionButton(ns("commit_btn"), "Commit", width = "100%"),
       div(id = ns("commit_ls"), class = "branch",
           div(
