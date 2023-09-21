@@ -1,6 +1,7 @@
 library(shiny)
 library(shinyAce)
 library(shinyjs)
+library(bslib)
 library(purrr)
 
 list.files(path = "mods/", full.names = TRUE) |> 

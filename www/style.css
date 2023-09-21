@@ -1,4 +1,23 @@
-:root{
+  .graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .slice {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .branch {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    white-space:nowrap; 
+  }
+
+  :root{
     --radius: 5em; 
     --radius2 : 2.5em; /*should be 1/2 radius*/ 
     } 
@@ -17,7 +36,6 @@ background-color: #f2e5e1;
   position: relative;
 }
 
-.dot:before,
 .dot:after
 {
   content:'';
@@ -40,7 +58,7 @@ background-color: #f2e5e1;
   left:100%;
   margin-left:15px; /* and add a small left margin */
 
-  z-index: 1; /* Add this line to ensure tooltip appears above other dots */
+  z-index: 3; /* Add this line to ensure tooltip appears above other dots */
   
   /* basic styles */
   width:200px;
@@ -68,6 +86,21 @@ background-color: #f2e5e1;
   display:none;
 }
 
-.branch {
-  white-space:nowrap; 
+.line {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  stroke-width: 3px;
+    
   }
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index:-1;
+  width: 100%;
+  height: 100%;
+}
