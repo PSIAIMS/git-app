@@ -2,6 +2,7 @@ library(shiny)
 library(shinyAce)
 library(shinyjs)
 library(purrr)
+library(bslib)
 
 list.files(path = "mods/", full.names = TRUE) |> 
   map(source)
@@ -17,7 +18,10 @@ ui <-  fluidPage(
                 nav_panel("Q1",
                           commitq2_ui("q2")),
                 nav_panel("Q2",  
-                          commitq1_ui("q1"))
+                          commitq1_ui("q1")),
+                nav_panel("Q3",  
+                          commitq3_ui("q3"))
+                
               )
               
     ),
@@ -31,6 +35,8 @@ ui <-  fluidPage(
 server <- function(input, output, session) {
   commitq1_server("q1")
   commitq2_server("q2")
+  commitq3_server("q3")
+  
 }
 
 shinyApp(ui = ui, server = server)
