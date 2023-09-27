@@ -2,20 +2,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 45vh;
   }
 
   .slice {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    min-height: 400px;
   }
 
-  .branch {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    white-space:nowrap; 
-  }
+
 
   :root{
     --radius: 5em; 
@@ -25,6 +22,15 @@
 body{
 background-color: #f2e5e1;
 }
+
+  .branch {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+    white-space:nowrap; 
+    min-height: calc(var(--radius)*2);
+  }
               
 .dot {
   display: inline-block;
@@ -35,6 +41,7 @@ background-color: #f2e5e1;
   margin: var(--radius2);
   position: relative;
 }
+
 
 .dot:after
 {
@@ -86,21 +93,42 @@ background-color: #f2e5e1;
   display:none;
 }
 
-.line {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  stroke-width: 3px;
-    
-  }
+.dot.head {
+  border: 3px solid black;
+}
 
-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index:-1;
-  width: 100%;
-  height: 100%;
+/* Connection between branches*/
+.branch:before{
+    content: '';
+    border-bottom: 3px solid;
+    position: absolute;
+    color: #000;
+}
+
+.branch.topbranch:before {
+    width: calc(var(--radius)*1.75);
+    left: calc(var(--radius)*-1);
+    top: 80%;
+    transform: rotate(320deg);
+  }
+  
+.branch.lowbranch:before {
+    width: calc(var(--radius)*1.75);
+    left: calc(var(--radius)*-1);
+    top: 30%;
+    transform: rotate(27deg);
+  }
+  
+.branch.comboUp:before{
+    width: calc(var(--radius)*1.9);
+    left: calc(var(--radius)*-1);
+    top: 20%;
+    transform: rotate(32deg);
+}
+
+.branch.comboLow:before{
+    width: calc(var(--radius)*3.5);
+    left: calc(var(--radius)*-2.7);
+    top: 75%;
+    transform: rotate(167deg);
 }
