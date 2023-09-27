@@ -1,9 +1,9 @@
 commitq3_ui <- function(id){
   ns <- NS(id)
   tagList(
-    h3("How could have Camille organised her work better?"),
+    h3("How could Camille have organized her work better?"),
     p('1 - Committing all important changes'),
-    p('2 - Tagging each release: here her submission to the journal'),
+    p('2 - Tagging each important release (submission to the journal)'),
     p('3 - Collaborating with Sylvie using git'),
     
   
