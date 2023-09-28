@@ -1,4 +1,20 @@
-:root{
+  .graph {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh;
+  }
+
+  .slice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 400px;
+  }
+
+
+
+  :root{
     --radius: 5em; 
     --radius2 : 2.5em; /*should be 1/2 radius*/ 
     } 
@@ -6,6 +22,15 @@
 body{
 background-color: #f2e5e1;
 }
+
+  .branch {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+    white-space:nowrap; 
+    min-height: calc(var(--radius)*2);
+  }
               
 .dot {
   display: inline-block;
@@ -17,7 +42,7 @@ background-color: #f2e5e1;
   position: relative;
 }
 
-.dot:before,
+
 .dot:after
 {
   content:'';
@@ -40,7 +65,7 @@ background-color: #f2e5e1;
   left:100%;
   margin-left:15px; /* and add a small left margin */
 
-  z-index: 1; /* Add this line to ensure tooltip appears above other dots */
+  z-index: 3; /* Add this line to ensure tooltip appears above other dots */
   
   /* basic styles */
   width:200px;
@@ -68,6 +93,70 @@ background-color: #f2e5e1;
   display:none;
 }
 
-.branch {
-  white-space:nowrap; 
+.dot.head {
+  border: 3px solid black;
+}
+
+/* Connection between branches*/
+.branch:before{
+    content: '';
+    border-bottom: 3px solid;
+    position: absolute;
+    color: #000;
+}
+
+.branch.topbranch:before {
+    width: calc(var(--radius)*1.75);
+    left: calc(var(--radius)*-.9);
+    top: 81%;
+    transform: rotate(319deg);
   }
+
+
+  
+.branch.lowbranch:before {
+    width: calc(var(--radius)*1.75);
+    left: calc(var(--radius)*-1);
+    top: 30%;
+    transform: rotate(27deg);
+  }
+  
+.branch.comboUp:before{
+    width: calc(var(--radius)*1.9);
+    left: calc(var(--radius)*-0.9);
+    top: 19%;
+    transform: rotate(37deg);
+}
+
+.branch.comboStraight:before{
+    width: calc(var(--radius)*6);
+    left: calc(var(--radius)*-5);
+    top: 56%;
+}
+
+/* Special CSS for Merge Q2 */
+.branch.topbranch2:before {
+    width: calc(var(--radius)*3);
+    left: calc(var(--radius)*-1.3);
+    top: 85%;
+    transform: rotate(312deg);
+  }
+
+.branch.straight:before{
+    width: calc(var(--radius)*2);
+    left: calc(var(--radius)*-1);
+    top: 50%;
+}
+
+.branch.comboStraight2:before{
+    width: calc(var(--radius)*4);
+    left: calc(var(--radius)*-3);
+    top: 56%;
+}
+
+.branch.comboUp2:before{
+    width: calc(var(--radius)*2.5);
+    left: calc(var(--radius)*-1);
+    top: 0%;
+    transform: rotate(49deg);
+}
