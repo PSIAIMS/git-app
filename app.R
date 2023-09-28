@@ -34,7 +34,10 @@ ui <-  fluidPage(
     nav_panel("Merging Branches", 
               navset_card_tab(
                 nav_panel("Q1",
-                          mergeq1_ui("mq1"))
+                          mergeq1_ui("mq1")),
+                nav_panel("Q2",
+                          mergeq2_ui("mq2")
+                          )
               )
               )
   )
@@ -47,6 +50,7 @@ server <- function(input, output, session) {
   
   branchq1_server("bq1")
   mergeq1_server("mq1")
+  mergeq2_server("mq2")
 }
 
 shinyApp(ui = ui, server = server)

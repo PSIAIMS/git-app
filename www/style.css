@@ -107,10 +107,12 @@ background-color: #f2e5e1;
 
 .branch.topbranch:before {
     width: calc(var(--radius)*1.75);
-    left: calc(var(--radius)*-1);
-    top: 80%;
-    transform: rotate(320deg);
+    left: calc(var(--radius)*-.9);
+    top: 81%;
+    transform: rotate(319deg);
   }
+
+
   
 .branch.lowbranch:before {
     width: calc(var(--radius)*1.75);
@@ -121,14 +123,40 @@ background-color: #f2e5e1;
   
 .branch.comboUp:before{
     width: calc(var(--radius)*1.9);
-    left: calc(var(--radius)*-1);
-    top: 20%;
-    transform: rotate(32deg);
+    left: calc(var(--radius)*-0.9);
+    top: 19%;
+    transform: rotate(37deg);
 }
 
-.branch.comboLow:before{
-    width: calc(var(--radius)*3.5);
-    left: calc(var(--radius)*-2.7);
-    top: 75%;
-    transform: rotate(167deg);
+.branch.comboStraight:before{
+    width: calc(var(--radius)*6);
+    left: calc(var(--radius)*-5);
+    top: 56%;
+}
+
+/* Special CSS for Merge Q2 */
+.branch.topbranch2:before {
+    width: calc(var(--radius)*3);
+    left: calc(var(--radius)*-1.3);
+    top: 85%;
+    transform: rotate(312deg);
+  }
+
+.branch.straight:before{
+    width: calc(var(--radius)*2);
+    left: calc(var(--radius)*-1);
+    top: 50%;
+}
+
+.branch.comboStraight2:before{
+    width: calc(var(--radius)*4);
+    left: calc(var(--radius)*-3);
+    top: 56%;
+}
+
+.branch.comboUp2:before{
+    width: calc(var(--radius)*2.5);
+    left: calc(var(--radius)*-1);
+    top: 0%;
+    transform: rotate(49deg);
 }
