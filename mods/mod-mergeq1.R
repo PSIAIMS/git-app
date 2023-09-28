@@ -50,7 +50,7 @@ mergeq1_ui <- function(id){
              aceEditor(ns("code_box"), "Code Box", value = main, readOnly = TRUE)
       )
     ),
-    actionButton(ns("merge"), "Merge")
+    actionButton(ns("merge"), "Merge into main")
     
     
   )
