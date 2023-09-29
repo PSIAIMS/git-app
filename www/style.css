@@ -97,6 +97,10 @@ background-color: #f2e5e1;
   border: 3px solid black;
 }
 
+.dot.tagged {
+  background-color: #e0c3de;
+}
+
 /* Connection between branches*/
 .branch:before{
     content: '';

@@ -122,6 +122,9 @@ mergeq2_server <- function(id){
       
       observeEvent(input$commit, {
         removeModal()
+        # Update code 
+        updateAceEditor(session, "code_box", 
+                        value = main_cont())
       })
       
       
@@ -167,9 +170,8 @@ mergeq2_server <- function(id){
               "
         ))
         
-        # Update code 
-        updateAceEditor(session, "code_box", 
-                        value = paste(main, "\n", analysis2))
+        
+        disable("merge")
         
       })
       
