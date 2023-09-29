@@ -9,6 +9,14 @@ library(stringr)
 list.files(path = "mods/", full.names = TRUE) |> 
   map(source)
 
+versions <- list(
+  dot1 = "Test1",
+  dot2 = "test2",
+  dot3 = "test3",
+  dots1 = "Test4",
+  dotJA1 = "Journal Update",
+  dotJA2 = "Journal Update again..."
+)
   
 ui <-  fluidPage(
   includeCSS("www/style.css"),
@@ -31,10 +39,11 @@ ui <-  fluidPage(
     nav_panel("Making Branches",
               navset_card_tab(
                 nav_panel("Q1",
-                          branchq1_ui("bq1"))
+                          branchq1_ui("bq1")),
+                nav_panel("Q2",
+                          branchq2_ui("bq2"))
               )
               ),
-    nav_panel("Remotes"),
     nav_panel("Merging Branches", 
               navset_card_tab(
                 nav_panel("Q1",
@@ -54,6 +63,8 @@ server <- function(input, output, session) {
   commitq3_server("q3")
   
   branchq1_server("bq1")
+  branchq2_server("bq2")
+  
   mergeq1_server("mq1")
   mergeq2_server("mq2")
 }

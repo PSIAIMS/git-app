@@ -1,10 +1,3 @@
-versions <- list(
-  dot1 = "Test1",
-  dot2 = "test2",
-  dot3 = "test3",
-  dots1 = "Test4"
-)
-
 commitq3_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -56,18 +49,34 @@ commitq3_server <- function(id){
     function(input, output, session){
       ns <- session$ns
       
+      
       observeEvent(input$tag_btn, {
-        
-        showModal(
-          modalDialog(
-            title = "Tag Commit",
-            h5("Add a tag message to this commit"),
-            textInput(ns("input_tag"), "Tag Name:"),
-            footer=tagList(
-              actionButton(ns('submit'), 'Submit')
+        if(!is.null(input$head) && input$head == 'dot2'){
+          showModal(
+            modalDialog(
+              title = "Tag Commit",
+              p("Add a tag message to this commit"),
+              textInput(ns("input_tag"), "Tag Name:"),
+              footer=tagList(
+                actionButton(ns('submit'), 'Submit')
+              )
             )
           )
-        )
+        } else {
+          showModal(
+            modalDialog(
+              title = "Opps",
+              p("You haven't found the right commit, keep looking"),
+              footer=tagList(
+                actionButton(ns('close'), 'close')
+              )
+            )
+          )
+        }
+      })
+      
+      observeEvent(input$close,{
+        removeModal()
       })
       
       observeEvent(input$submit, { 
@@ -79,6 +88,7 @@ commitq3_server <- function(id){
               "
             )
           )
+          disable("tag_btn")
         }
         })
       
@@ -99,7 +109,9 @@ dot_update <- function(loc,ns, session){
     shinyjs::runjs(
       str_glue(
         "$('#{ns('graph')}').find('.head').first().removeClass('head');
-              $('#{ns(loc)}').addClass('head');"
+         $('#{ns(loc)}').addClass('head');
+        Shiny.setInputValue(\"{ns('head')}\", '{loc}');
+        "
       )
     )
     updateAceEditor(session, "code_box", 

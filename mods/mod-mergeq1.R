@@ -127,6 +127,8 @@ mergeq1_server <- function(id){
         updateAceEditor(session, "code_box", 
                         value = paste0(main, "\n", analysis2))
         
+        disable("merge")
+        
       })
       
       
