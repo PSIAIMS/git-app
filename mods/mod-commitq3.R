@@ -65,7 +65,7 @@ commitq3_server <- function(id){
         } else {
           showModal(
             modalDialog(
-              title = "Opps",
+              title = "Oops",
               p("You haven't found the right commit, keep looking"),
               footer=tagList(
                 actionButton(ns('close'), 'close')

@@ -3,16 +3,15 @@ library(shinyAce)
 library(shinyjs)
 library(bslib)
 library(purrr)
-library(bslib)
 library(stringr)
 
 list.files(path = "mods/", full.names = TRUE) |> 
   map(source)
 
 versions <- list(
-  dot1 = "Test1",
-  dot2 = "test2",
-  dot3 = "test3",
+  dot1 = "### Initial code",                          # initially Test1
+  dot2 = "### Final version for Journal",             # initially Test2
+  dot3 = "### Exploring Other Analyses",              # Initially Test3
   dots1 = "Test4",
   dotJA1 = "Journal Update",
   dotJA2 = "Journal Update again..."
