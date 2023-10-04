@@ -35,7 +35,7 @@ commitq3_ui <- function(id){
     
     fluidRow(
       column(width = 11, 
-             aceEditor(ns("code_box"), "Code Box", value = versions["dots1"], 
+             aceEditor(ns("code_box"), "Code Box", value = code_versions["dots1"], 
                        readOnly = TRUE)
       )
     )
@@ -115,7 +115,9 @@ dot_update <- function(loc,ns, session){
       )
     )
     updateAceEditor(session, "code_box", 
-                    value = versions[loc])
+                    value = code_versions[loc],
+                    theme = "chrome",
+                    mode = "r")
     
   })
 }

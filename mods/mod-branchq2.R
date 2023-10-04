@@ -49,7 +49,7 @@ branchq2_ui <- function(id){
       
       fluidRow(
         column(width = 11, 
-               aceEditor(ns("code_box"), "Code Box", value = versions["dots1"], 
+               aceEditor(ns("code_box"), "Code Box", value = code_versions["dots1"], 
                          readOnly = TRUE)
         )
       )
@@ -113,7 +113,7 @@ branchq2_server <- function(id){
           )
           
           updateAceEditor(session, "code_box", 
-                          value = versions[loc])
+                          value = code_versions[loc])
           
           if(input$commit_btn > 1){
             disable("commit_btn")
