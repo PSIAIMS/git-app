@@ -52,7 +52,7 @@ branchq2_ui <- function(id){
       
       fluidRow(
         column(width = 11, 
-               aceEditor(ns("code_box"), "Code Box", value = code_versions["dots1"], 
+               aceEditor(ns("code_box"), "Code Box", value = code_versions["dot4"], 
                          readOnly = TRUE)
         )
       )
@@ -68,7 +68,7 @@ branchq2_server <- function(id){
       ns <- session$ns
       hide("commit_btn")
       
-      # current_dot <- reactiveVal("dot4")
+      current_dot <- reactiveVal("dot4")
       
       observeEvent(input$branch_btn, {
         if(!is.null(input$head) && input$head == 'dot2'){
@@ -133,12 +133,12 @@ branchq2_server <- function(id){
       })
       
       
-      dot_update("dot1", ns, session)
-      dot_update("dot2", ns, session)
-      dot_update("dot3", ns, session)
-      dot_update("dot4", ns, session) 
-      dot_update("dotJA1", ns, session) 
-      dot_update("dotJA2", ns, session) 
+      dot_update("dot1", ns, session, current_dot)
+      dot_update("dot2", ns, session, current_dot)
+      dot_update("dot3", ns, session, current_dot)
+      dot_update("dot4", ns, session, current_dot) 
+      dot_update("dotJA1", ns, session, current_dot) 
+      dot_update("dotJA2", ns, session, current_dot) 
     }
   )
 }
