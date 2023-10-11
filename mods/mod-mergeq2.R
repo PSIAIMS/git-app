@@ -1,7 +1,3 @@
-analysis2 <- "[Contents of Analysis2 Branch]"
-main <- "[Contents of Main Branch]"
-
-
 
 
 mergeq2_ui <- function(id){
@@ -15,21 +11,26 @@ mergeq2_ui <- function(id){
                          c("main", "Analysis2"), width  ='80%')
       )
     ),
-    div(class = "graph", id = ns("graph"), style = "height:40vh",
-        div(
-          div(
-            class = "dot",
-            message = "My first commit"
-          ),
-          div(
-            class = "dot",
-            message = "Next commit"
-          ),
-          class = "branch", id = ns("b0"),
-          style = "z-index: 3;"
+    div(class = "graph", id = ns("graph"),
+        div(class = "slice",
+            div(class = "branch"),
+            div(class = c("branch", "main", "left"), id = ns("b0"),
+                "Main",
+                div(
+                  class = "dot",
+                  message = "My first commit"
+                ),
+                div(
+                  class = "dot",
+                  message = "Next commit"
+                ),
+                
+                style = "z-index: 3;"
+            )
         ),
-        div(class = "slice", id = ns("commit_ls"), style = "z-index: 2; height:539px",
+        div(class = "slice", id = ns("commit_ls"), style = "z-index: 2;",
             div(
+              class = c("branch", "topbranch", "analysis2"), id = ns("b1"),
               div(
                 class = "dot",
                 message = "Update name of variable"
@@ -37,16 +38,18 @@ mergeq2_ui <- function(id){
               div(
                 class = c("dot", "head"),
                 message = "Fixed bug"
-              ),
-              class = c("branch", "topbranch2"), id = ns("b1")
+              )
             ),
             div(
+              class = c("branch", "samebranch", "main", "right"), id = ns("b2"),
               div(
                 class = "dot",
                 message = "New version"
-              ),
-              class = c("branch", "straight"), id = ns("b2")
+              )
             )
+        ),
+        div(class = "slice", id = ns("merge_loc"),
+            div(class = "branch")
         )
     ),
     fluidRow(
@@ -142,20 +145,20 @@ mergeq2_server <- function(id){
                         "\n=======\n",
                         analysis2,
                         "\n>>>>>>> Analysis2"
-                        )),
+                      )),
             footer=tagList(
               actionButton(ns('commit'), 'Commit')
             )
-          
+            
           )
         )
         
         # Add New Dot 
         insertUI(
-          selector = paste0("#",  ns("graph")),
+          selector = paste0("#",  ns("merge_loc")),
           where = "beforeEnd",
-          ui = div(class = c("branch", "comboUp2"),
-                   div(class = c("branch", "comboStraight2"),
+          ui = div(class = c("branch", "topbottom"),
+                   div(class = c("branch", "main", "right", "samebranch2"),
                        id = ns("b3"),
                        div(
                          class = c("dot", 'head'),
@@ -167,6 +170,8 @@ mergeq2_server <- function(id){
         # Move Head 
         shinyjs::runjs(str_glue(
           "$('#{ns('graph')}').find('.head').first().removeClass('head');
+          $('#{ns('b2')}').css('width', '100%');
+          $('#{ns('b2')}').css('border-radius', '0px');
               "
         ))
         

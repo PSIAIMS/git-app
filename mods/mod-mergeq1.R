@@ -15,20 +15,24 @@ mergeq1_ui <- function(id){
                          c("main", "Analysis2"), selected = "main")
       )
     ),
-    div(class = "graph", id = ns("graph"), style = "height:40vh",
-        div(
-          div(
-            class = "dot",
-            message = "My first commit"
-          ),
-          div(
-            class = c("dot"),
-            message = "Next commit"
-          ),
-          class = "branch", id = ns("b0"),
-          style = "z-index: 3;"
+    div(class = "graph", id = ns("graph"),
+        div(class = "slice",
+            div(class = "branch"),
+            div(class = c("branch", "main"), id = ns("b0"),
+                "Main",
+                div(
+                  class = "dot",
+                  message = "My first commit"
+                ),
+                div(
+                  class = c("dot"),
+                  message = "Next commit"
+                ),
+                
+                style = "z-index: 3;"
+            )
         ),
-        div(class = "slice", id = ns("commit_ls"), style = "z-index: 2;",
+        div(class = "slice", style = "z-index: 2;",
             div(
               div(
                 class = "dot",
@@ -38,11 +42,14 @@ mergeq1_ui <- function(id){
                 class = c("dot"),
                 message = "Fixed bug"
               ),
-              class = c("branch", "topbranch"), id = ns("b1")
+              class = c("branch", "topbranch", "analysis2"), id = ns("b1")
             ),
             div(
-              class = c("branch"), id = ns("b2")
+              class = c("branch", "main"), id = ns("b2") 
             )
+        ), 
+        div(class = "slice", id = ns("merge_loc"),
+            div(class = "branch")
         )
     ),
     fluidRow(
@@ -105,21 +112,26 @@ mergeq1_server <- function(id){
       observeEvent(input$merge, {
         # Add New Dot 
         insertUI(
-          selector = paste0("#",  ns("graph")),
+          selector = paste0("#",  ns("merge_loc")),
           where = "beforeEnd",
-          ui = div(class = c("branch", "comboUp"),
-                   div(class = c("branch", "comboStraight"),
+          ui = div(class = c("branch", "topbottom"),
+                   div(class = c("branch", "samebranch2", "main", "right"),
                        id = ns("b3"),
                        div(
                          class = c("dot", "head"),
                          message = "Merged"
                        )
+                       
                    )
           )
         )
+        
         # Move Head 
         shinyjs::runjs(str_glue(
           "$('#{ns('graph')}').find('.head').first().removeClass('head');
+            $('#{ns('b0')}').addClass('left');
+           $('#{ns('b2')}').css('width', '100%');
+          $('#{ns('b2')}').css('border-radius', '0px');
               "
         ))
         

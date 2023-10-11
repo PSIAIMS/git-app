@@ -1,34 +1,32 @@
-  .graph {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 45vh;
-  }
-
-  .slice {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    min-height: 400px;
-  }
-
-
-
-  :root{
+:root{
     --radius: 5em; 
     --radius2 : 2.5em; /*should be 1/2 radius*/ 
-    } 
-    
+}
+
 body{
 background-color: #f2e5e1;
 }
 
-  .branch {
+ 
+.graph {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
+    height: fit-content;
+    width: fit-content;
+  }
+
+.slice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.branch {
+    display: flex;
     position: relative;
     margin-bottom: 20px;
-    white-space:nowrap; 
+    white-space: nowrap;
     min-height: calc(var(--radius)*2);
   }
               
@@ -98,7 +96,7 @@ background-color: #f2e5e1;
 }
 
 .dot.tagged {
-  background-color: #e0c3de;
+  background-color: #f3969a;
 }
 
 /* Connection between branches*/
@@ -110,57 +108,80 @@ background-color: #f2e5e1;
 }
 
 .branch.topbranch:before {
-    width: calc(var(--radius)*1.75);
-    left: calc(var(--radius)*-.9);
-    top: 81%;
-    transform: rotate(319deg);
-  }
-
-
-  
-.branch.lowbranch:before {
-    width: calc(var(--radius)*1.75);
+    width: calc(var(--radius)*2);
     left: calc(var(--radius)*-1);
-    top: 30%;
-    transform: rotate(27deg);
+    top: 105%;
+    transform: rotate(132deg);
   }
   
-.branch.comboUp:before{
-    width: calc(var(--radius)*1.9);
-    left: calc(var(--radius)*-0.9);
-    top: 19%;
-    transform: rotate(37deg);
-}
-
-.branch.comboStraight:before{
-    width: calc(var(--radius)*6);
-    left: calc(var(--radius)*-5);
-    top: 56%;
-}
-
-/* Special CSS for Merge Q2 */
-.branch.topbranch2:before {
-    width: calc(var(--radius)*3);
-    left: calc(var(--radius)*-1.3);
-    top: 85%;
-    transform: rotate(312deg);
-  }
-
-.branch.straight:before{
+.branch.samebranch:before {
     width: calc(var(--radius)*2);
     left: calc(var(--radius)*-1);
     top: 50%;
+  }
+
+.branch.main{
+  background-color: #6cc3d533;
+  border-radius: 5px; 
+  align-items: flex-end;
 }
 
-.branch.comboStraight2:before{
-    width: calc(var(--radius)*4);
-    left: calc(var(--radius)*-3);
-    top: 56%;
+.main.left{
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-left: 5px;
 }
 
-.branch.comboUp2:before{
-    width: calc(var(--radius)*2.5);
-    left: calc(var(--radius)*-1);
-    top: 0%;
-    transform: rotate(49deg);
+.main.right{
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
+
+.branch.newbranch{
+  background-color: #ff785133;
+  border-radius: 5px; 
+  padding-right: 3px;
+  margin-right: 3px;
+}
+
+.branch.newbranch:after {
+    content: 'New Branch';
+  }
+  
+.branch.analysis2{
+  background-color: #ff785133;
+  border-radius: 5px; 
+  padding-right: 3px;
+  margin-right: 3px;
+}
+
+.branch.analysis2:after {
+    content: 'Analysis2';
+  }
+  
+
+.branch.samebranch2:before {
+    width: calc(var(--radius)*7);
+    left: calc(var(--radius)*-6);
+    top: 50%;
+    background-color: #6cc3d533;
+  }
+  
+.branch.topbottom:before{
+    width: calc(var(--radius)*3);
+    left: calc(var(--radius)*-2);
+    top: -10%;
+    transform: rotate(220deg);
+}
+
+.box{
+    border: 2px solid black;
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    padding: 1%;
+    min-width: fit-content;
+}
+
+
