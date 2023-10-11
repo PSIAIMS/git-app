@@ -5,10 +5,9 @@ library(bslib)
 library(purrr)
 library(stringr)
 
-source("data/code_versions.R")
 source("global.R")
 
-  
+
 ui <-  fluidPage(
   includeCSS("www/style.css"),
   shinyjs::useShinyjs(),
@@ -47,7 +46,9 @@ ui <-  fluidPage(
     nav_panel("Remotes", 
               navset_card_tab(
                 nav_panel("Q1",
-                          remotesq1_ui("rq1"))
+                          remotesq1_ui("rq1")),
+                nav_panel("Q2",
+                          remotesq2_ui("rq2"))
               )
     )
   )
@@ -66,6 +67,7 @@ server <- function(input, output, session) {
   mergeq2_server("mq2")
   
   remotesq1_server("rq1")
+  remotesq2_server("rq2")
   
 }
 

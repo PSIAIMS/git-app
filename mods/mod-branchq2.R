@@ -8,7 +8,7 @@ branchq2_ui <- function(id){
     div(class = "graph", id = ns("graph"),
         div(class = "slice",
             div(class = "branch"),
-            div(class = c("branch", "main"), id = ns("b0"),
+            div(class = c("branch", "main", "left"), id = ns("b0"),
                 "Main",
                 div(
                   class = "dot",
@@ -36,12 +36,11 @@ branchq2_ui <- function(id){
               div(
                 class = c("dot", "head"),
                 message = "Code V4",
-                id = ns("dots1")
+                id = ns("dot4")
               ),
-              class = c("branch", "samebranch", "main"), id = ns("b2")
+              class = c("branch", "samebranch", "main", "right"), id = ns("b2")
             )
         )
-        # )
     ),
     
     
@@ -68,6 +67,9 @@ branchq2_server <- function(id){
     function(input, output, session){
       ns <- session$ns
       hide("commit_btn")
+      
+      # current_dot <- reactiveVal("dot4")
+      
       observeEvent(input$branch_btn, {
         if(!is.null(input$head) && input$head == 'dot2'){
           disable("branch_btn")
@@ -134,7 +136,7 @@ branchq2_server <- function(id){
       dot_update("dot1", ns, session)
       dot_update("dot2", ns, session)
       dot_update("dot3", ns, session)
-      dot_update("dots1", ns, session) 
+      dot_update("dot4", ns, session) 
       dot_update("dotJA1", ns, session) 
       dot_update("dotJA2", ns, session) 
     }

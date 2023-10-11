@@ -7,14 +7,11 @@ body{
 background-color: #f2e5e1;
 }
 
-/**, *::before, *::after {
-    box-sizing: border-box;
-}*/
  
 .graph {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: fit-content;
     width: fit-content;
   }
@@ -23,7 +20,6 @@ background-color: #f2e5e1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    min-height: 400px;
 }
 
 .branch {
@@ -182,9 +178,10 @@ background-color: #f2e5e1;
     border: 2px solid black;
     background-color: transparent;
     display: flex;
+    flex-wrap: wrap;
     height: fit-content;
-    padding-top: 1%;
-    width: fit-content;
+    padding: 1%;
+    min-width: fit-content;
 }
 
 

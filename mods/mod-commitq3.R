@@ -24,7 +24,7 @@ commitq3_ui <- function(id){
         div(
           class = c("dot", "head"),
           message = "Code V4",
-          id = ns("dots1")
+          id = ns("dot4")
         ),
         class = "branch"
     ),
@@ -34,9 +34,14 @@ commitq3_ui <- function(id){
       column(4, actionButton(ns("tag_btn"), "Tag"))),
     
     fluidRow(
-      column(width = 11, 
-             aceEditor(ns("code_box"), "Code Box", value = code_versions["dots1"], 
-                       readOnly = TRUE)
+      splitLayout(
+        cellWidths = c("50%", "50%"),
+        aceEditor(ns("code_box"), "Code Box", value = code_versions["dot4"], 
+                  readOnly = TRUE),
+        column(
+          width = 12,
+          imageOutput(ns("plot"))
+        )
       )
     )
     
@@ -49,8 +54,10 @@ commitq3_server <- function(id){
     function(input, output, session){
       ns <- session$ns
       
+      current_dot <- reactiveVal("dot4")
       
       observeEvent(input$tag_btn, {
+        print(current_dot())
         if(!is.null(input$head) && input$head == 'dot2'){
           showModal(
             modalDialog(
@@ -92,11 +99,18 @@ commitq3_server <- function(id){
         }
         })
       
+      output$plot <- renderImage({
+        list(src = paste0("images/pubgraph1-",current_dot(), ".jpg"),
+             contentType = 'image/jpg',
+             alt = "Plot from commit")
+        
+      }, deleteFile = FALSE)
       
-      dot_update("dot1", ns, session)
-      dot_update("dot2", ns, session)
-      dot_update("dot3", ns, session)
-      dot_update("dots1", ns, session)
+      
+      dot_update("dot1", ns, session, current_dot)
+      dot_update("dot2", ns, session, current_dot)
+      dot_update("dot3", ns, session, current_dot)
+      dot_update("dot4", ns, session, current_dot)
       
     }
   )
