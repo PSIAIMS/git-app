@@ -23,7 +23,7 @@ commitq3_ui <- function(id){
         ),
         div(
           class = c("dot", "head"),
-          message = "Code V1 - Sylvie",
+          message = "Code V4",
           id = ns("dots1")
         ),
         class = "branch"
@@ -103,21 +103,3 @@ commitq3_server <- function(id){
 }
 
 
-dot_update <- function(loc,ns, session){
-  onclick(loc, { 
-    
-    shinyjs::runjs(
-      str_glue(
-        "$('#{ns('graph')}').find('.head').first().removeClass('head');
-         $('#{ns(loc)}').addClass('head');
-        Shiny.setInputValue(\"{ns('head')}\", '{loc}');
-        "
-      )
-    )
-    updateAceEditor(session, "code_box", 
-                    value = code_versions[loc],
-                    theme = "chrome",
-                    mode = "r")
-    
-  })
-}

@@ -43,7 +43,13 @@ ui <-  fluidPage(
                           mergeq2_ui("mq2")
                           )
               )
+              ),
+    nav_panel("Remotes", 
+              navset_card_tab(
+                nav_panel("Q1",
+                          remotesq1_ui("rq1"))
               )
+    )
   )
 )
 
@@ -58,6 +64,9 @@ server <- function(input, output, session) {
   
   mergeq1_server("mq1")
   mergeq2_server("mq2")
+  
+  remotesq1_server("rq1")
+  
 }
 
 shinyApp(ui = ui, server = server)
