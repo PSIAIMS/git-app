@@ -1,14 +1,19 @@
+analysis2 <- "[Contents of Analysis2 Branch]"
+main <- "[Contents of Main Branch]"
 
 
 mergeq2_ui <- function(id){
   ns <- NS(id)
   tagList(
     h3("Merging branches together"),
-    h5("We are going to combine our branch into main"),
+    p("Again, we want to pull the updates we have made on the analysis branch into main.
+      But this time there is a commit on main already.
+      Change to the branch to main and merge to see what happens. 
+      "),
     fluidRow(
       column(width = 6,
              selectInput(ns("slct_brn"),  "Branch",
-                         c("main", "Analysis2"), width  ='80%')
+                         c("main", "Analysis2"), selected = "Analysis2", width  ='80%')
       )
     ),
     div(class = "graph", id = ns("graph"),
@@ -53,11 +58,15 @@ mergeq2_ui <- function(id){
         )
     ),
     fluidRow(
+      column(width = 3, 
+             disabled(actionButton(ns("merge"), "Merge")))
+    ),
+    fluidRow(
       column(width = 11, 
              aceEditor(ns("code_box"), "Code Box", value = main, readOnly = TRUE)
       )
     ),
-    actionButton(ns("merge"), "Merge into main")
+    
     
     
   )
@@ -80,7 +89,7 @@ mergeq2_server <- function(id){
               "
             )
           )
-          
+          enable("merge")
           updateAceEditor(session, "code_box", 
                           value = main_cont())
           
@@ -104,6 +113,7 @@ mergeq2_server <- function(id){
             )
           )
           
+          disable("merge")
           updateAceEditor(session, "code_box", 
                           value = analysis2)
         }
@@ -138,6 +148,8 @@ mergeq2_server <- function(id){
           modalDialog(
             title = "Merge Conflict",
             h5("There is a merge conflict with the file. Please Correct and then commit"),
+            p("Merge conflict can happen when multiple people change the same file. 
+              To resolve this you just need to decide what to keep and delete the <<<, ==, and >>> rows."),
             aceEditor(ns("merge_box"), "Merge Box", 
                       value = paste0(
                         "<<<<<<< HEAD\n",
