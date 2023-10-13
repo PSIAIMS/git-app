@@ -1,18 +1,15 @@
-analysis2 <- "[Contents of Analysis2 Branch]"
-main <- "[Contents of Main Branch]"
-
-
-
 
 mergeq1_ui <- function(id){
   ns <- NS(id)
   tagList(
     h3("Merging branches together"),
-    h5("We are going to combine our branch into main"),
+    p("We want to pull the updates we have made on the analysis branch into main.
+      To do this change the branch to main and then merge. 
+      "),
     fluidRow(
       column(width = 6,
              selectInput(ns("slct_brn"),  "Branch",
-                         c("main", "Analysis2"), selected = "main")
+                         c("main", "Analysis2"), selected = "Analysis2")
       )
     ),
     div(class = "graph", id = ns("graph"),
@@ -49,17 +46,21 @@ mergeq1_ui <- function(id){
             )
         ), 
         div(class = "slice", id = ns("merge_loc"),
-            div(class = "branch")
         )
     ),
     fluidRow(
-      column(width = 11, 
-             aceEditor(ns("code_box"), "Code Box", value = main, readOnly = TRUE)
+      column(width = 3, 
+             actionButton(ns("merge"), "Merge")
+             
+      ), 
+      column(width = 3, 
+             conditionalPanel(
+               condition = "input.merge > 0",
+               actionButton(ns("undo"), "Undo"),
+               ns = ns
+             )
       )
-    ),
-    actionButton(ns("merge"), "Merge into main")
-    
-    
+    )
   )
 }
 
@@ -68,9 +69,14 @@ mergeq1_server <- function(id){
     id,
     function(input, output, session){
       ns <- session$ns
+      merge_loc <- reactiveVal("")
+      
+      observeEvent(input$close,{
+        removeModal()
+      })
       
       observeEvent(input$slct_brn, {
-        if(input$slct_brn == "main" & input$merge == 0){
+        if(input$slct_brn == "main" & merge_loc() %in% c("", "Analysis2")){
           shinyjs::runjs(
             str_glue(
               "$('#{ns('graph')}').find('.head').first().removeClass('head');
@@ -79,10 +85,7 @@ mergeq1_server <- function(id){
             )
           )
           
-          updateAceEditor(session, "code_box", 
-                          value = main)
-          
-        } else if(input$slct_brn == "main" & input$merge > 0){
+        } else if(input$slct_brn == "main" & merge_loc() == "main"){
           shinyjs::runjs(
             str_glue(
               "$('#{ns('graph')}').find('.head').first().removeClass('head');
@@ -91,8 +94,6 @@ mergeq1_server <- function(id){
             )
           )
           
-          updateAceEditor(session, "code_box", 
-                          value = paste0(main, "\n", analysis2))
         } else {
           shinyjs::runjs(
             str_glue(
@@ -101,47 +102,118 @@ mergeq1_server <- function(id){
               "
             )
           )
-          
-          updateAceEditor(session, "code_box", 
-                          value = analysis2)
-        }
+        } 
       })
       
       
       
       observeEvent(input$merge, {
         # Add New Dot 
-        insertUI(
-          selector = paste0("#",  ns("merge_loc")),
-          where = "beforeEnd",
-          ui = div(class = c("branch", "topbottom"),
-                   div(class = c("branch", "samebranch2", "main", "right"),
-                       id = ns("b3"),
-                       div(
-                         class = c("dot", "head"),
-                         message = "Merged"
-                       )
-                       
-                   )
+        if(input$slct_brn == "main"){
+          insertUI(
+            selector = paste0("#",  ns("merge_loc")),
+            where = "beforeEnd",
+            ui = tagList(
+              div(class = "branch"),
+              div(
+                class = c("branch", "topbottom"),
+                  div(class = c("branch", "samebranch2", "main", "right"),
+                      id = ns("b3"),
+                      div(
+                        class = c("dot", "head"),
+                        message = "Merged"
+                      )
+                      
+                  )
+              )
+            )
           )
-        )
-        
-        # Move Head 
-        shinyjs::runjs(str_glue(
-          "$('#{ns('graph')}').find('.head').first().removeClass('head');
+          
+          # Move Head 
+          shinyjs::runjs(str_glue(
+            "$('#{ns('graph')}').find('.head').first().removeClass('head');
             $('#{ns('b0')}').addClass('left');
            $('#{ns('b2')}').css('width', '100%');
           $('#{ns('b2')}').css('border-radius', '0px');
               "
-        ))
+          ))
+          
+        } else {
+          shinyjs::runjs(str_glue(
+            "$('#{ns('graph')}').find('.head').first().removeClass('head');
+              "
+          ))
+          
+          showModal(
+            modalDialog(
+              title = "Oops",
+              p("You merged main into the Analysis2 branch rather than bringing 
+                the Analysis branch into main. You will need to undo the merge and change your branch."),
+              footer=tagList(
+                actionButton(ns('close'), 'close')
+              )
+            )
+          )
+
+          insertUI(
+            selector = paste0("#",  ns("b1")),
+            where = "beforeEnd",
+            ui = div(
+              id = ns("mergedot"),
+              class = c("bottomtop"),
+              div(
+                id = ns("dotm"),
+                class = c("dot", "head"),
+                message = "Merged"
+              )
+            )
+          )
+          
+        }
         
-        # Update code 
-        updateAceEditor(session, "code_box", 
-                        value = paste0(main, "\n", analysis2))
-        
+        merge_loc(input$slct_brn)
+        print(merge_loc())
         disable("merge")
         
       })
+      
+      
+      observeEvent(input$undo,{
+        enable("merge")
+        if(merge_loc() == "main"){
+          removeUI(
+            selector = paste0("#",  ns("merge_loc"))
+          )
+          
+          insertUI(
+            selector = paste0("#",  ns("graph")),
+            where = "beforeEnd",
+            ui = div(class = "slice", id = ns("merge_loc"))
+          )
+          
+          shinyjs::runjs(str_glue(
+            "$('#{ns('b0')}').removeClass('left');
+           $('#{ns('b2')}').css('width', 'unset');
+          $('#{ns('b2')}').css('border-radius', 'unset');
+              "
+          ))
+          
+          
+        } else if(merge_loc() == "Analysis2"){
+          removeUI(
+            selector = paste0("#",  ns("mergedot"))
+          )
+          
+          shinyjs::runjs(
+            str_glue(
+              "$('#{ns('b1')}').find('.dot').last().addClass('head');"
+            )
+          )
+          
+        }
+      })
+      
+      
       
       
       
