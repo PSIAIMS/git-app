@@ -4,6 +4,7 @@ library(shinyjs)
 library(bslib)
 library(purrr)
 library(stringr)
+library(readr)
 
 source("global.R")
 
