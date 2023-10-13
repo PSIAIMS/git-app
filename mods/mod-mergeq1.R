@@ -7,7 +7,7 @@ main <- "[Contents of Main Branch]"
 mergeq1_ui <- function(id){
   ns <- NS(id)
   tagList(
-    h3("Mering branches together"),
+    h3("Merging branches together"),
     h5("We are going to combine our branch into main"),
     fluidRow(
       column(width = 6,
