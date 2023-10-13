@@ -15,7 +15,7 @@ ui <-  fluidPage(
   page_navbar(
     title = "Git in theory",
     theme = bs_theme(bootswatch ="minty"),
-    nav_panel("Commiting",
+    nav_panel("Committing",
               navset_card_tab(
                 nav_panel("Q1",
                           commitq2_ui("q2")),

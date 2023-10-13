@@ -3,7 +3,7 @@ commitq3_ui <- function(id){
   tagList(
     h3("Can you find the version of code Camille needs for journal A?"),
     p('Using your mouse click to checkout each version Camille saved. 
-      Once you find the right one make sure to tag it so we can find it in the future.'),
+      Once you find the right one, make sure to tag it so we can find it in the future.'),
     
     div(id = ns("graph"),
         div(
