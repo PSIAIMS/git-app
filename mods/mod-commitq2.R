@@ -3,9 +3,9 @@ init <- 'print("hello [My Name]")'
 commitq2_ui <- function(id) {
   ns <- NS(id)
   tagList(
-    h3("Let's make our fist commit"),
+    h3("Let's make our first commit"),
     p(
-      "In order to make a commit, fist we will need to change the code. 
+      "In order to make a commit, first we will need to change the code. 
       So update your name, then write a commit message into the box. 
       Finally save the commit by pressing the commit button."
     ),

@@ -82,9 +82,10 @@ commitq1_server <- function(id){
           disable("undo_btn")
         } else if(num_dots() == 3){
           disable("commit_btn")
-          test <- setequal(messages(), c("My first commit",
+          test <- setequal(str_to_lower(messages()), 
+                           str_to_lower(c("My first commit",
                                 "Next commit",
-                                "Final commit"))
+                                "Final commit")))
           if(test){
             showModal(
               modalDialog(

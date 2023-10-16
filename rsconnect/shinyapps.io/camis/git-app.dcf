@@ -5,7 +5,7 @@ account: camis
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10164241
-bundleId: 7800618
+bundleId: 7808017
 url: https://camis.shinyapps.io/git-app/
 version: 1
 asMultiple: FALSE
