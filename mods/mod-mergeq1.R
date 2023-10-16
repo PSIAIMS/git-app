@@ -6,6 +6,7 @@ mergeq1_ui <- function(id){
     p("We want to pull the updates we have made on the analysis branch into main.
       To do this change the branch to main and then merge. 
       "),
+
     fluidRow(
       column(width = 6,
              selectInput(ns("slct_brn"),  "Branch",

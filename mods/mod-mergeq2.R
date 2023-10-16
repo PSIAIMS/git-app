@@ -10,6 +10,7 @@ mergeq2_ui <- function(id){
       But this time there is a commit on main already.
       Change to the branch to main and merge to see what happens. 
       "),
+
     fluidRow(
       column(width = 6,
              selectInput(ns("slct_brn"),  "Branch",
