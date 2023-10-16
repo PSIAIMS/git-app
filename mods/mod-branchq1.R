@@ -16,8 +16,7 @@ branchq1_ui <- function(id){
              )
     ),
     div(class = "graph", id = ns("graph"),
-        div(class = "slice", 
-            div(class = c("branch")),
+        div(class = "slice", id = ns("slice1"),
             div(
               class = c("branch", "main"), id = ns("b0"),
               "Main",
@@ -37,15 +36,14 @@ branchq1_ui <- function(id){
               style = "z-index: 3;"
             )),
         div(class = "slice", 
-            id = ns("commit_ls"),
-            div(class = "branch", id = ns("b1")),
-            div(class = "branch", id = ns("b2"))
+            id = ns("commit_ls")
             ),
     ),
     conditionalPanel(
       condition = "input.branch_btn > 0",
       h3("Add Commits"),
       p("Now let's add two additional commits to each branch. 
+        First, let's put two commits to 'New Branch'. Then, let's add a commit to main. 
         The commit will always be added to the branch you are currently on"),
       fluidRow(
         column(width = 6, textInput(ns("input_text"), "Enter Commit Message:")),
@@ -66,12 +64,20 @@ branchq1_server <- function(id){
       # Make a new branch 
       observeEvent(input$branch_btn, {
         disable("branch_btn")
-        shinyjs::runjs(
-          str_glue(
-            "$('#{ns('b1')}').addClass('topbranch');
-            "
-          )
+        insertUI(
+          selector = paste0("#", ns("slice1")),
+          where = "afterBegin",
+          ui = div(class = c("branch"))
         )
+        
+        
+        insertUI(
+          selector = paste0("#", ns("commit_ls")),
+          where = "beforeEnd",
+          ui = tagList(div(class = c("branch", "topbranch"), id = ns("b1")),
+            div(class = "branch", id = ns("b2")))
+        )
+        
       })
       
       observeEvent(input$commit_btn, {

@@ -108,7 +108,7 @@ background-color: #f2e5e1;
 }
 
 .branch.topbranch:before {
-    width: calc(var(--radius)*2);
+    width: calc(var(--radius)*2.1);
     left: calc(var(--radius)*-1);
     top: 105%;
     transform: rotate(132deg);
@@ -184,4 +184,13 @@ background-color: #f2e5e1;
     min-width: fit-content;
 }
 
-
+.bottomtop:before{
+    width: calc(var(--radius)*6);
+    left: calc(var(--radius)*-1);
+    top: 111%;
+    transform: rotate(160deg);
+    content: '';
+    border-bottom: 3px solid;
+    position: absolute;
+    color: #000;
+}
